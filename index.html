@@ -110,6 +110,19 @@
     pointer-events: none;
   }
   .hero-logos {
+    .logo-box {
+  background: white;
+  padding: 8px 14px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-box img {
+  height: 55px;
+  object-fit: contain;
+}
     position: absolute; top: 90px; left: 0; right: 0;
     display: flex; justify-content: space-between; align-items: center;
     padding: 0 36px;
@@ -666,16 +679,18 @@
   <div class="hero-logos">
 
   <!-- School Logo -->
-  <img src="images/school-logo.png"
-       alt="Podar International School"
-       style="height:65px; object-fit:contain;" />
+  <div class="logo-box">
+    <img src="images/school-logo.png"
+         alt="Podar International School">
+  </div>
 
   <!-- Tour India Logo -->
-  <img src="images/logo.png"
-       alt="Tour India"
-       style="height:65px; object-fit:contain;" />
-
+  <div class="logo-box">
+    <img src="images/logo.png"
+         alt="Tour India">
   </div>
+
+</div>
   
   <div class="hero-badge">🎒 Educational Field Trip · 2026</div>
 
