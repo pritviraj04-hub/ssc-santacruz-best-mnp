@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Educational Field Trip | Podar International School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ──────────────────────────────────────────────
+     CSS VARIABLES & RESET
+  ────────────────────────────────────────────── */
+  :root {
+    --blue:    #0b2d6e;
+    --blue2:   #1a4db8;
+    --orange:  #f47b20;
+    --orange2: #ff9a3c;
+    --green:   #2ecc71;
+    --green2:  #27ae60;
+    --light:   #f4f7fc;
+    --white:   #ffffff;
+    --text:    #1a1a2e;
+    --muted:   #6b7280;
+    --card:    rgba(255,255,255,0.08);
+    --radius:  16px;
+    --shadow:  0 12px 48px rgba(11,45,110,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a  { text-decoration: none; color: inherit; }
+
+  /* ──────────────────────────────────────────────
+     SCROLL PROGRESS BAR
+  ────────────────────────────────────────────── */
+  #progress-bar {
+    position: fixed; top: 0; left: 0;
+    height: 4px; width: 0%;
+    background: linear-gradient(90deg, var(--orange), var(--orange2));
+    z-index: 9999;
+    transition: width 0.1s linear;
+  }
+
+  /* ──────────────────────────────────────────────
+     STICKY NAV
+  ────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 4px; left: 0; right: 0;
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 32px;
+    background: rgba(11,45,110,0.92);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 24px rgba(11,45,110,0.25);
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .nav-brand span { color: var(--orange); }
+  .nav-links {
+    display: flex; gap: 24px; list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange2); }
+  .nav-register-btn {
+    background: var(--orange);
+    color: var(--white) !important;
+    padding: 7px 18px;
+    border-radius: 50px;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-register-btn:hover { background: var(--orange2) !important; }
+
+  /* ──────────────────────────────────────────────
+     HERO
+  ────────────────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(150deg, rgba(11,45,110,0.92) 0%, rgba(26,77,184,0.88) 60%, rgba(46,204,113,0.18) 100%),
+      url('images/hero-bg.jpg') center/cover no-repeat;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 120px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(244,123,32,0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-logos {
+    position: absolute; top: 90px; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 36px;
+  }
+  .logo-placeholder {
+    background: rgba(255,255,255,0.12);
+    border: 2px solid rgba(255,255,255,0.22);
+    border-radius: 12px;
+    width: 90px; height: 64px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding: 8px;
+    gap: 4px;
+  }
+  .logo-placeholder svg { opacity: 0.7; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(244,123,32,0.18);
+    border: 1px solid rgba(244,123,32,0.5);
+    color: var(--orange2);
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    animation: fadeDown 0.8s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 7vw, 5.2rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.08;
+    margin-bottom: 18px;
+    animation: fadeDown 0.9s 0.1s ease both;
+  }
+  .hero-title em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--orange), var(--orange2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 400;
+    max-width: 520px;
+    margin: 0 auto 10px;
+    animation: fadeDown 1s 0.2s ease both;
+  }
+  .hero-school {
+    font-size: 0.9rem;
+    color: var(--orange2);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+    animation: fadeDown 1s 0.25s ease both;
+  }
+  .hero-date-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 50px;
+    padding: 8px 22px;
+    color: var(--white);
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-bottom: 36px;
+    animation: fadeDown 1s 0.3s ease both;
+  }
+  .btn-register {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--orange), var(--orange2));
+    color: var(--white);
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 16px 44px;
+    border-radius: 50px;
+    box-shadow: 0 8px 32px rgba(244,123,32,0.45);
+    animation: fadeDown 1s 0.4s ease both, pulse-btn 2.4s 2s ease-in-out infinite;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .btn-register:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 14px 40px rgba(244,123,32,0.55);
+  }
+  .scroll-indicator {
+    position: absolute; bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.45);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .scroll-indicator svg { opacity: 0.5; }
+
+  /* ──────────────────────────────────────────────
+     SECTION COMMONS
+  ────────────────────────────────────────────── */
+  section { padding: 90px 24px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--orange);
+    background: rgba(244,123,32,0.10);
+    border: 1px solid rgba(244,123,32,0.25);
+    padding: 4px 14px; border-radius: 50px;
+    margin-bottom: 14px;
+  }
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .section-heading span { color: var(--blue2); }
+  .section-desc {
+    font-size: 1.02rem;
+    color: var(--muted);
+    max-width: 640px;
+    line-height: 1.75;
+    margin-bottom: 48px;
+  }
+
+  /* ──────────────────────────────────────────────
+     ABOUT BEST MUSEUM
+  ────────────────────────────────────────────── */
+  #best { background: var(--light); }
+  .museum-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .museum-features { display: flex; flex-direction: column; gap: 18px; }
+  .feature-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: 0 2px 12px rgba(11,45,110,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .feature-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(11,45,110,0.13);
+  }
+  .feature-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--blue), var(--blue2));
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.3rem;
+  }
+  .feature-text h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+  .feature-text p  { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+  .img-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 140px;
+    gap: 12px;
+  }
+  .img-ph {
+    background: linear-gradient(135deg, #d0dcef 0%, #b8cae5 100%);
+    border-radius: 12px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: var(--blue);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    gap: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .img-ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+  .img-ph:first-child { grid-row: 1 / 3; }
+  .img-ph span { position: relative; z-index: 1; text-align: center; background: rgba(255,255,255,0.7); padding: 4px 10px; border-radius: 6px; }
+  .img-ph svg  { position: relative; z-index: 1; }
+
+  /* ──────────────────────────────────────────────
+     MAHARASHTRA NATURE PARK
+  ────────────────────────────────────────────── */
+  #mnp { background: var(--white); }
+  .mnp-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .mnp-visual {
+    background: linear-gradient(135deg, #1a7a45 0%, #2ecc71 60%, #27ae60 100%);
+    border-radius: 24px;
+    min-height: 400px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    box-shadow: 0 16px 48px rgba(39,174,96,0.28);
+  }
+  .mnp-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; border-radius: 24px; }
+  .mnp-visual-text {
+    position: relative; z-index: 1;
+    text-align: center; color: var(--white); padding: 24px;
+  }
+  .mnp-visual-text .big-icon { font-size: 4rem; margin-bottom: 12px; }
+  .mnp-visual-text h3 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 800; }
+  .mnp-visual-text p  { font-size: 0.88rem; opacity: 0.85; margin-top: 8px; }
+  .mnp-features { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .mnp-card {
+    background: var(--light);
+    border-radius: 14px;
+    padding: 20px 16px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+  }
+  .mnp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(46,204,113,0.18);
+    border-color: rgba(46,204,113,0.35);
+  }
+  .mnp-card .icon { font-size: 2rem; margin-bottom: 10px; }
+  .mnp-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .mnp-card p  { font-size: 0.76rem; color: var(--muted); line-height: 1.45; }
+
+  /* ──────────────────────────────────────────────
+     TIMELINE
+  ────────────────────────────────────────────── */
+  #itinerary { background: var(--blue); }
+  #itinerary .section-heading { color: var(--white); }
+  #itinerary .section-tag {
+    color: var(--orange2);
+    background: rgba(244,123,32,0.18);
+    border-color: rgba(244,123,32,0.3);
+  }
+  #itinerary .section-desc { color: rgba(255,255,255,0.65); }
+  .timeline { position: relative; max-width: 700px; margin: 0 auto; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 32px; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(180deg, var(--orange), var(--orange2), var(--green));
+  }
+  .tl-item {
+    display: flex; align-items: flex-start; gap: 24px;
+    margin-bottom: 32px;
+    padding-left: 8px;
+    animation: fadeRight 0.5s ease both;
+  }
+  .tl-dot {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), var(--orange2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(244,123,32,0.4);
+    position: relative; z-index: 1;
+    border: 3px solid var(--blue);
+  }
+  .tl-content {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 14px;
+    padding: 16px 20px;
+    flex: 1;
+    backdrop-filter: blur(8px);
+  }
+  .tl-time {
+    font-size: 0.78rem; font-weight: 700;
+    color: var(--orange2); letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .tl-title { font-size: 1.02rem; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+  .tl-note  { font-size: 0.8rem; color: rgba(255,255,255,0.55); }
+
+  /* ──────────────────────────────────────────────
+     LEARNING OUTCOMES
+  ────────────────────────────────────────────── */
+  #learning { background: var(--light); }
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+  }
+  .outcome-card {
+    background: var(--white);
+    border-radius: 18px;
+    padding: 32px 20px;
+    text-align: center;
+    box-shadow: 0 2px 16px rgba(11,45,110,0.07);
+    transition: transform 0.25s, box-shadow 0.25s;
+    border-top: 4px solid transparent;
+  }
+  .outcome-card:nth-child(1) { border-color: var(--blue2); }
+  .outcome-card:nth-child(2) { border-color: var(--green2); }
+  .outcome-card:nth-child(3) { border-color: var(--orange); }
+  .outcome-card:nth-child(4) { border-color: #9b59b6; }
+  .outcome-card:nth-child(5) { border-color: #e74c3c; }
+  .outcome-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(11,45,110,0.14); }
+  .outcome-icon { font-size: 2.6rem; margin-bottom: 14px; }
+  .outcome-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+  .outcome-card p  { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+  /* ──────────────────────────────────────────────
+     SAFETY
+  ────────────────────────────────────────────── */
+  #safety { background: var(--white); }
+  .safety-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 18px;
+  }
+  .safety-card {
+    background: linear-gradient(135deg, #e8f4fd 0%, #d4e9ff 100%);
+    border-radius: 16px;
+    padding: 28px 16px;
+    text-align: center;
+    border: 2px solid rgba(26,77,184,0.10);
+    transition: transform 0.2s;
+  }
+  .safety-card:hover { transform: translateY(-4px); }
+  .safety-card .icon { font-size: 2.4rem; margin-bottom: 12px; }
+  .safety-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--blue); }
+  .safety-card p  { font-size: 0.75rem; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+
+  /* ──────────────────────────────────────────────
+     REGISTER SECTION
+  ────────────────────────────────────────────── */
+  #register {
+    background: linear-gradient(135deg, var(--blue) 0%, var(--blue2) 100%);
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  #register::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 320px; height: 320px; border-radius: 50%;
+    background: rgba(244,123,32,0.12);
+    pointer-events: none;
+  }
+  #register::after {
+    content: '';
+    position: absolute; bottom: -60px; left: -60px;
+    width: 240px; height: 240px; border-radius: 50%;
+    background: rgba(46,204,113,0.10);
+    pointer-events: none;
+  }
+  #register .section-heading { color: var(--white); }
+  #register .section-tag { color: var(--orange2); background: rgba(244,123,32,0.18); border-color: rgba(244,123,32,0.3); }
+  .reg-details {
+    display: flex; align-items: center; justify-content: center; gap: 36px;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+  }
+  .reg-chip {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    padding: 12px 28px;
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .fee-big {
+    font-size: 3rem; font-weight: 900;
+    font-family: 'Playfair Display', serif;
+    color: var(--orange2);
+    margin: 16px 0 36px;
+    text-align: center;
+  }
+  .fee-big span { font-size: 1.2rem; color: rgba(255,255,255,0.6); font-family: 'DM Sans', sans-serif; font-weight: 400; display: block; margin-top: 4px; }
+  .btn-register-big {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--orange), var(--orange2));
+    color: var(--white);
+    font-size: 1.18rem;
+    font-weight: 700;
+    padding: 20px 60px;
+    border-radius: 50px;
+    box-shadow: 0 10px 40px rgba(244,123,32,0.5);
+    animation: pulse-btn 2s ease-in-out infinite;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.04em;
+    position: relative; z-index: 1;
+  }
+  .btn-register-big:hover {
+    transform: scale(1.05) translateY(-4px);
+    box-shadow: 0 18px 50px rgba(244,123,32,0.65);
+  }
+  .reg-note {
+    color: rgba(255,255,255,0.45);
+    font-size: 0.8rem;
+    margin-top: 20px;
+    position: relative; z-index: 1;
+  }
+
+  /* ──────────────────────────────────────────────
+     FOOTER
+  ────────────────────────────────────────────── */
+  footer {
+    background: #07173a;
+    color: rgba(255,255,255,0.7);
+    padding: 60px 24px 32px;
+    text-align: center;
+  }
+  .footer-inner { max-width: 900px; margin: 0 auto; }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .footer-tagline { font-size: 0.82rem; color: rgba(255,255,255,0.4); margin-bottom: 28px; }
+  .footer-contact {
+    display: flex; align-items: center; justify-content: center; gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .footer-contact a {
+    display: flex; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.88rem;
+    transition: color 0.2s;
+  }
+  .footer-contact a:hover { color: var(--orange2); }
+  .footer-social {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    margin-bottom: 36px;
+  }
+  .social-icon {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.65);
+    font-size: 1rem;
+    transition: background 0.2s, color 0.2s;
+  }
+  .social-icon:hover { background: var(--orange); color: var(--white); }
+  .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 0 0 20px; }
+  .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+
+  /* ──────────────────────────────────────────────
+     FLOATING REGISTER BUTTON
+  ────────────────────────────────────────────── */
+  #float-btn {
+    position: fixed; bottom: 28px; right: 28px;
+    background: linear-gradient(135deg, var(--orange), var(--orange2));
+    color: var(--white);
+    font-size: 0.88rem;
+    font-weight: 700;
+    padding: 14px 26px;
+    border-radius: 50px;
+    box-shadow: 0 8px 28px rgba(244,123,32,0.5);
+    cursor: pointer;
+    animation: pulse-btn 2.2s ease-in-out infinite;
+    z-index: 5000;
+    display: flex; align-items: center; gap: 8px;
+    transition: transform 0.2s;
+    text-decoration: none;
+  }
+  #float-btn:hover { transform: scale(1.06) translateY(-2px); }
+
+  /* ──────────────────────────────────────────────
+     KEYFRAMES & ANIMATIONS
+  ────────────────────────────────────────────── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeRight {
+    from { opacity: 0; transform: translateX(-22px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(10px); }
+  }
+  @keyframes pulse-btn {
+    0%, 100% { box-shadow: 0 8px 28px rgba(244,123,32,0.45); }
+    50%       { box-shadow: 0 8px 40px rgba(244,123,32,0.75); }
+  }
+
+  /* ──────────────────────────────────────────────
+     SCROLL REVEAL (JS adds .visible)
+  ────────────────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ──────────────────────────────────────────────
+     RESPONSIVE
+  ────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    nav { padding: 12px 16px; }
+    .nav-links { display: none; }
+    .hero-logos { padding: 0 16px; top: 80px; }
+    .museum-grid { grid-template-columns: 1fr; }
+    .img-gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 140px 140px; }
+    .img-ph:first-child { grid-row: auto; }
+    .mnp-layout { grid-template-columns: 1fr; }
+    .timeline::before { left: 24px; }
+    .tl-dot { width: 40px; height: 40px; font-size: 1rem; }
+    .reg-details { gap: 16px; }
+    #float-btn { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SCROLL PROGRESS -->
+<div id="progress-bar"></div>
+
+<!-- FLOATING REGISTER BUTTON -->
+<a id="float-btn" href="https://YOUR-PAYMENT-LINK-HERE.com" target="_blank">
+  <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+  Register Now
+</a>
+
+<!-- ══ NAVIGATION ══════════════════════════════ -->
+<nav>
+  <div class="nav-brand">Podar <span>SSC</span> Santacruz</div>
+  <ul class="nav-links">
+    <li><a href="#best">BEST Museum</a></li>
+    <li><a href="#mnp">Nature Park</a></li>
+    <li><a href="#itinerary">Itinerary</a></li>
+    <li><a href="#register" class="nav-register-btn">Register ₹1365</a></li>
+  </ul>
+</nav>
+
+<!-- ══ SLIDE 1 · HERO ══════════════════════════ -->
+<section id="hero">
+  <div class="hero-logos">
+    <div class="logo-placeholder">
+      <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+      <span>Podar<br/>Int. School</span>
+    </div>
+    <div class="logo-placeholder">
+      <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 004 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+      <span>Tour India<br/>Tours & Travels</span>
+    </div>
+  </div>
+
+  <div class="hero-badge">🎒 Educational Field Trip · 2026</div>
+
+  <h1 class="hero-title">
+    Educational<br/><em>Field Trip</em>
+  </h1>
+  <p class="hero-subtitle">BEST Museum &amp; Maharashtra Nature Park</p>
+  <p class="hero-school">Podar International School (SSC), Santacruz</p>
+
+  <div class="hero-date-chip">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    Friday, 17 April 2026
+  </div>
+
+  <a class="btn-register" href="https://YOUR-PAYMENT-LINK-HERE.com" target="_blank">
+    🎟️ Register Now &nbsp;→
+  </a>
+
+  <div class="scroll-indicator">
+    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · BEST MUSEUM ══════════════════ -->
+<section id="best">
+  <div class="section-inner">
+    <div class="section-tag">🚌 Stop 1</div>
+    <h2 class="section-heading">Visit <span>BEST Museum</span></h2>
+    <p class="section-desc">Step back in time and discover the rich heritage of Mumbai's iconic public transport system — from horse-drawn trams to modern electric buses.</p>
+    <div class="museum-grid reveal">
+      <div class="museum-features">
+        <div class="feature-item">
+          <div class="feature-icon">🚌</div>
+          <div class="feature-text">
+            <h4>Miniature Models & Exhibits</h4>
+            <p>Explore fascinating scale models of BEST buses, trams, and historic Mumbai transport vehicles across the decades.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📸</div>
+          <div class="feature-text">
+            <h4>Historic Photographs</h4>
+            <p>Witness rare archival photographs documenting the evolution of Mumbai's public transport from the colonial era to today.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🏛️</div>
+          <div class="feature-text">
+            <h4>Classic Daimler Double-Decker</h4>
+            <p>Get up close with an original Daimler double-decker bus chassis — a living piece of Mumbai's transportation history.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📚</div>
+          <div class="feature-text">
+            <h4>Guided Museum Tour</h4>
+            <p>Expert guides will walk students through exhibits, sharing engaging stories about Mumbai's transport heritage.</p>
+          </div>
+        </div>
+      </div>
+      <div class="img-gallery">
+        <div class="img-ph">
+          <img src="images/best-museum.jpg" alt="BEST Museum" onerror="this.style.display='none'" />
+          <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#1a4db8" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>BEST Museum</span>
+        </div>
+        <div class="img-ph">
+          <img src="images/best-bus.jpg" alt="Vintage Bus" onerror="this.style.display='none'" />
+          <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#1a4db8" stroke-width="1.5"><rect x="1" y="3" width="22" height="16" rx="2"/><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/></svg>
+          <span>Vintage Bus</span>
+        </div>
+        <div class="img-ph">
+          <img src="images/students-museum.jpg" alt="Students Learning" onerror="this.style.display='none'" />
+          <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#1a4db8" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <span>Students Learning</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · MAHARASHTRA NATURE PARK ══════ -->
+<section id="mnp">
+  <div class="section-inner">
+    <div class="section-tag">🌿 Stop 2</div>
+    <h2 class="section-heading">Explore <span>Maharashtra Nature Park</span></h2>
+    <p class="section-desc">An extraordinary urban forest in the heart of Mumbai — discover biodiversity, mangroves, and the science of ecological conservation.</p>
+    <div class="mnp-layout reveal">
+      <div class="mnp-visual">
+        <img src="images/nature-park.jpg" alt="Maharashtra Nature Park" onerror="this.style.display='none'" />
+        <div class="mnp-visual-text">
+          <div class="big-icon">🌳</div>
+          <h3>Maharashtra<br/>Nature Park</h3>
+          <p>Dharavi, Mumbai · Established 1977</p>
+        </div>
+      </div>
+      <div>
+        <div class="mnp-features">
+          <div class="mnp-card">
+            <div class="icon">🦋</div>
+            <h4>Biodiversity Study</h4>
+            <p>Discover diverse flora and fauna in Mumbai's urban wilderness</p>
+          </div>
+          <div class="mnp-card">
+            <div class="icon">🌊</div>
+            <h4>Mangrove Ecosystem</h4>
+            <p>Observe coastal mangroves and understand their ecological importance</p>
+          </div>
+          <div class="mnp-card">
+            <div class="icon">🌱</div>
+            <h4>Man-Made Forest</h4>
+            <p>Learn how this thriving forest was created on reclaimed land</p>
+          </div>
+          <div class="mnp-card">
+            <div class="icon">♻️</div>
+            <h4>Conservation Ethics</h4>
+            <p>Understand environmental responsibility and sustainable practices</p>
+          </div>
+          <div class="mnp-card">
+            <div class="icon">🔭</div>
+            <h4>Nature Observation</h4>
+            <p>Guided walks with nature experts and interactive learning sessions</p>
+          </div>
+          <div class="mnp-card">
+            <div class="icon">🍃</div>
+            <h4>Environmental Awareness</h4>
+            <p>Build a deeper connection with nature and our responsibility to protect it</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 4 · ITINERARY ═════════════════════ -->
+<section id="itinerary">
+  <div class="section-inner">
+    <div class="section-tag">🗓️ Day Plan</div>
+    <h2 class="section-heading" style="color:white;">Trip <span style="color:var(--orange2);">Itinerary</span></h2>
+    <p class="section-desc">A well-organised, action-packed day designed for maximum learning and fun.</p>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot">🏫</div>
+        <div class="tl-content">
+          <div class="tl-time">8:00 AM</div>
+          <div class="tl-title">Assemble at School</div>
+          <div class="tl-note">Students to report at school premises in school uniform</div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot">🚌</div>
+        <div class="tl-content">
+          <div class="tl-time">8:30 AM</div>
+          <div class="tl-title">Depart for BEST Museum</div>
+          <div class="tl-note">Packed breakfast served on the AC bus during travel</div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot">🏛️</div>
+        <div class="tl-content">
+          <div class="tl-time">9:30 AM</div>
+          <div class="tl-title">Arrival at BEST Museum</div>
+          <div class="tl-note">Guided museum tour with expert — exhibits, models, historic vehicles</div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot">🌿</div>
+        <div class="tl-content">
+          <div class="tl-time">11:30 AM</div>
+          <div class="tl-title">Depart for Maharashtra Nature Park</div>
+          <div class="tl-note">AC bus transfer to MNP, Dharavi</div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot">🍱</div>
+        <div class="tl-content">
+          <div class="tl-time">12:00 PM</div>
+          <div class="tl-title">Lunch at Maharashtra Nature Park</div>
+          <div class="tl-note">Packed lunch served at the park's designated picnic area</div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot">🦋</div>
+        <div class="tl-content">
+          <div class="tl-time">12:30 PM</div>
+          <div class="tl-title">Guided Nature Park Tour</div>
+          <div class="tl-note">Biodiversity walk, mangrove exploration, nature conservation activities</div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot">🏠</div>
+        <div class="tl-content">
+          <div class="tl-time">3:30 PM</div>
+          <div class="tl-title">Depart for School</div>
+          <div class="tl-note">Board AC buses for return journey</div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot">✅</div>
+        <div class="tl-content">
+          <div class="tl-time">4:30 PM</div>
+          <div class="tl-title">Arrival at School</div>
+          <div class="tl-note">Safe return — students to be received by parents/guardians</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 5 · LEARNING OUTCOMES ═══════════ -->
+<section id="learning">
+  <div class="section-inner">
+    <div class="section-tag">🎓 What Students Gain</div>
+    <h2 class="section-heading">Learning <span>Outcomes</span></h2>
+    <p class="section-desc">This trip is carefully curated to develop critical thinking, environmental awareness, and real-world observational skills.</p>
+    <div class="outcomes-grid">
+      <div class="outcome-card reveal">
+        <div class="outcome-icon">🚌</div>
+        <h4>Transportation History</h4>
+        <p>Understand how Mumbai's public transport evolved over 150+ years</p>
+      </div>
+      <div class="outcome-card reveal">
+        <div class="outcome-icon">🌍</div>
+        <h4>Environmental Awareness</h4>
+        <p>Build sensitivity towards ecosystems, biodiversity and sustainability</p>
+      </div>
+      <div class="outcome-card reveal">
+        <div class="outcome-icon">🔍</div>
+        <h4>Observation Skills</h4>
+        <p>Develop scientific observation through guided field exploration</p>
+      </div>
+      <div class="outcome-card reveal">
+        <div class="outcome-icon">🤝</div>
+        <h4>Group Learning</h4>
+        <p>Strengthen teamwork, communication, and collaborative discovery</p>
+      </div>
+      <div class="outcome-card reveal">
+        <div class="outcome-icon">🌐</div>
+        <h4>Real-World Education</h4>
+        <p>Bring classroom concepts to life through hands-on experiential learning</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 6 · SAFETY ════════════════════════ -->
+<section id="safety">
+  <div class="section-inner">
+    <div class="section-tag">🛡️ Your Child's Safety</div>
+    <h2 class="section-heading">Safe &amp; <span>Comfortable</span> Journey</h2>
+    <p class="section-desc">Every detail is planned to ensure your child has a secure, comfortable, and enjoyable experience throughout the trip.</p>
+    <div class="safety-grid reveal">
+      <div class="safety-card">
+        <div class="icon">❄️</div>
+        <h4>AC Buses</h4>
+        <p>Air-conditioned coaches for comfortable travel</p>
+      </div>
+      <div class="safety-card">
+        <div class="icon">👩‍🏫</div>
+        <h4>Teacher Escorts</h4>
+        <p>Accompanied by trained teachers & tour escorts throughout</p>
+      </div>
+      <div class="safety-card">
+        <div class="icon">🥗</div>
+        <h4>Packed Breakfast</h4>
+        <p>Healthy packed breakfast provided on the bus</p>
+      </div>
+      <div class="safety-card">
+        <div class="icon">🍱</div>
+        <h4>Packed Lunch</h4>
+        <p>Nutritious packed lunch at Maharashtra Nature Park</p>
+      </div>
+      <div class="safety-card">
+        <div class="icon">🏥</div>
+        <h4>First Aid Support</h4>
+        <p>First aid kit & medical support available at all times</p>
+      </div>
+      <div class="safety-card">
+        <div class="icon">🛡️</div>
+        <h4>Safe Transportation</h4>
+        <p>Licensed, insured vehicles with experienced drivers</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 7 · REGISTER ══════════════════════ -->
+<section id="register">
+  <div class="section-inner" style="text-align:center; position:relative; z-index:1;">
+    <div class="section-tag">🎟️ Limited Seats</div>
+    <h2 class="section-heading" style="color:var(--white); max-width:600px; margin:0 auto 24px;">Secure Your<br/>Spot Today</h2>
+
+    <div class="reg-details">
+      <div class="reg-chip">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        17 April 2026
+      </div>
+      <div class="reg-chip">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+        BEST Museum + MNP
+      </div>
+      <div class="reg-chip">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        All Students Welcome
+      </div>
+    </div>
+
+    <div class="fee-big">
+      ₹1,365
+      <span>per student · all inclusive</span>
+    </div>
+
+    <a class="btn-register-big" href="https://YOUR-PAYMENT-LINK-HERE.com" target="_blank">
+      🎟️ &nbsp;Register Now &nbsp;→
+    </a>
+    <p class="reg-note">Includes: Bus transport · Breakfast · Lunch · Entry tickets · Guided tours</p>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Tour India Tours &amp; Travels Pvt. Ltd.</div>
+    <div class="footer-tagline">Organizing Educational Field Trips Across India</div>
+
+    <div class="footer-contact">
+      <a href="tel:02240108833">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.02v2.9z"/></svg>
+        022-4010 8833
+      </a>
+      <a href="mailto:info@tourindia.com">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        info@tourindia.com
+      </a>
+    </div>
+
+    <div class="footer-social">
+      <a class="social-icon" href="#" title="Facebook">f</a>
+      <a class="social-icon" href="#" title="Instagram">📸</a>
+      <a class="social-icon" href="#" title="WhatsApp">💬</a>
+      <a class="social-icon" href="#" title="YouTube">▶</a>
+    </div>
+
+    <hr class="footer-divider"/>
+    <div class="footer-copy">
+      © 2026 Tour India Tours &amp; Travels Pvt. Ltd. | Podar International School (SSC), Santacruz. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- ══ JAVASCRIPT ══════════════════════════════ -->
+<script>
+  // Scroll Progress Bar
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.getElementById('progress-bar').style.width = progress + '%';
+  });
+
+  // Scroll Reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Timeline item stagger
+  const tlItems = document.querySelectorAll('.tl-item');
+  const tlObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateX(0)';
+        }, i * 100);
+        tlObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  tlItems.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(-24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    tlObserver.observe(el);
+  });
+</script>
+</body>
+</html>
